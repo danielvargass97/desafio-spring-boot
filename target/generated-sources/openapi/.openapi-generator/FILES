@@ -1,0 +1,11 @@
+.openapi-generator-ignore
+README.md
+pom.xml
+src/main/java/com/nuevospa/tasks/infrastructure/adapter/in/rest/api/ApiUtil.java
+src/main/java/com/nuevospa/tasks/infrastructure/adapter/in/rest/api/AuthApi.java
+src/main/java/com/nuevospa/tasks/infrastructure/adapter/in/rest/api/TasksApi.java
+src/main/java/com/nuevospa/tasks/infrastructure/adapter/in/rest/model/ErrorResponse.java
+src/main/java/com/nuevospa/tasks/infrastructure/adapter/in/rest/model/LoginRequest.java
+src/main/java/com/nuevospa/tasks/infrastructure/adapter/in/rest/model/LoginResponse.java
+src/main/java/com/nuevospa/tasks/infrastructure/adapter/in/rest/model/TaskRequest.java
+src/main/java/com/nuevospa/tasks/infrastructure/adapter/in/rest/model/TaskResponse.java
