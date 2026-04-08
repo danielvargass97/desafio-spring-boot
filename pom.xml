@@ -140,7 +140,6 @@
 			<plugin>
 				<groupId>org.openapitools</groupId>
 				<artifactId>openapi-generator-maven-plugin</artifactId>
-				<output>${project.build.directory}/generated-sources/openapi</output>
 				<version>${openapi-generator.version}</version>
 				<executions>
 					<execution>
@@ -164,7 +163,6 @@
 				</executions>
 			</plugin>
 		</plugins>
-		<sourceDirectory>target/generated-sources/openapi/src/main/java</sourceDirectory>
 	</build>
 
 </project>
