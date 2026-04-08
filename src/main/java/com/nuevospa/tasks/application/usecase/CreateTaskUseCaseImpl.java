@@ -27,7 +27,7 @@ public class CreateTaskUseCaseImpl implements CreateTaskUseCase {
         TaskStatus status = taskStatusRepositoryPort.findById(statusId)
                 .orElseThrow(() -> new TaskNotFoundException("Status not found: " + statusId));
 
-        User user = userRepositoryPort.findByUsername(assignedUserId.toString())
+        User user = userRepositoryPort.findByUUID(assignedUserId)
                 .orElseThrow(() -> new TaskNotFoundException("User not found: " + assignedUserId));
 
         Task task = new Task();

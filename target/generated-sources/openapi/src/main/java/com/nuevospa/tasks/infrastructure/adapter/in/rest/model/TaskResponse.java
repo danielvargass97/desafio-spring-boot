@@ -21,7 +21,7 @@ import jakarta.annotation.Generated;
  * TaskResponse
  */
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2026-04-07T21:38:13.042304-05:00[America/Bogota]", comments = "Generator version: 7.4.0")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2026-04-08T16:22:02.855085-05:00[America/Bogota]", comments = "Generator version: 7.4.0")
 public class TaskResponse {
 
   private UUID id;

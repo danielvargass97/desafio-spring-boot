@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.Optional;
+import java.util.UUID;
 
 @Component
 @RequiredArgsConstructor
@@ -17,6 +18,12 @@ public class UserPersistenceAdapter implements UserRepositoryPort {
     @Override
     public Optional<User> findByUsername(String username) {
         return userJpaRepository.findByUsername(username)
+                .map(this::toModel);
+    }
+
+    @Override
+    public Optional<User> findByUUID(UUID uuid) {
+        return userJpaRepository.findById(uuid)
                 .map(this::toModel);
     }
 

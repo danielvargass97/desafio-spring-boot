@@ -3,6 +3,8 @@ package com.nuevospa.tasks.infrastructure.adapter.out.persistence;
 import com.nuevospa.tasks.application.port.out.TaskRepositoryPort;
 import com.nuevospa.tasks.domain.model.Task;
 import com.nuevospa.tasks.infrastructure.entity.TaskEntity;
+import com.nuevospa.tasks.infrastructure.entity.TaskStatusEntity;
+import com.nuevospa.tasks.infrastructure.entity.UserEntity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
