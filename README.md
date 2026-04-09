@@ -1,71 +1,149 @@
-# Desafío Técnico: Gestión de Tareas con Spring Boot y Java
+# Tasks API - Nuevo SPA Code Challenge
 
-La empresa NUEVO SPA desea desarrollar una plataforma de gestión de tareas para mejorar la productividad de sus equipos. El sistema debe permitir a los usuarios crear, actualizar, eliminar y listar tareas. Además, se requiere autenticación mediante JWT y documentación de la API utilizando OpenAPI.
+REST API for task management built with Spring Boot, JWT authentication and API First methodology.
 
-## Objetivo:
-Crear una API RESTful utilizando Spring Boot que gestione usuarios y tareas, aplicando buenas prácticas, principios SOLID y utilizando las tecnologías especificadas.
+## Tech Stack
 
-## Requisitos Técnicos:
-### Java:
-- Utiliza Java 21 para la implementación.
-- Utiliza las características de Java 21, como lambdas, records y streams, cuando sea apropiado.
-- Utilizar Maven como gestor de dependencias.
+- Java 21
+- Spring Boot 3.3.5
+- Spring Security + JWT
+- Spring Data JPA
+- H2 (in-memory database)
+- OpenAPI / Swagger UI
+- API First (openapi-generator-maven-plugin)
+- Lombok
+- Maven
 
-### Spring Boot 3.5.x:
-- Construye la aplicación utilizando Spring Boot 3.5.x (última versión disponible).
+## Architecture
 
-### Base de Datos:
+Hexagonal Architecture (Ports & Adapters):
 
-- Utiliza una base de datos H2.
-- Crea tres tablas: usuarios, tareas y estados_tarea.
-- La tabla usuarios debe contener datos pre cargados.
-- La tabla estados_tarea debe contener estados pre cargados.
+```
+com.nuevospa.tasks
+├── application
+│   ├── port
+│   │   ├── in        # Input ports (use case interfaces)
+│   │   └── out       # Output ports (repository interfaces)
+│   └── usecase       # Use case implementations
+├── domain
+│   ├── model         # Pure domain models
+│   └── exception     # Domain exceptions
+└── infrastructure
+├── adapter
+│   ├── in
+│   │   └── rest  # REST controllers
+│   └── out
+│       └── persistence  # JPA adapters
+├── config        # Security, JWT, Swagger
+└── entity        # JPA entities
+```
 
-### JPA:
-- Implementa una capa de persistencia utilizando JPA para almacenar y recuperar las tareas.
+## API First
 
-### JWT (JSON Web Token):
+The API contract is defined first in `src/main/resources/openapi.yml`.
+The plugin generates interfaces and models automatically:
 
-- Implementa la autenticación utilizando JWT para validar usuarios.
+```bash
+mvn generate-sources
+```
 
-### OpenAPI y Swagger:
+Generated code is available at `target/generated-sources/openapi`.
 
-- Documenta la API utilizando OpenAPI.
+## Running the app
 
-## Funcionalidades:
-### Autenticación:
-- Implementa un endpoint para la autenticación de usuarios utilizando JWT. 
+```bash
+mvn spring-boot:run
+```
 
-### CRUD de Tareas:
-- Implementa operaciones CRUD (Crear, Leer, Actualizar, Eliminar) para las tareas.
+App runs on `http://localhost:8080`
 
-## Consideraciones:
-### Seguridad:
-- Asegúrate de que las operaciones CRUD de tareas solo sean accesibles para usuarios autenticados.
+## Swagger UI
 
-### Documentación:
-- Utiliza OpenAPI 3 para documentar claramente la API.
-- Puntos adicionales si se genera el API mediante metodologia API First. Generar el archivo openapi.yml Nota: Ejemplo Plugin Maven groupId org.openapitools, artifactId openapi-generator-maven-plugin
+```bash
+http://localhost:8080/swagger-ui/index.html
+```
 
-### Buenas prácticas:
-- Escribe código ordenado, aplicando buenas prácticas y principios SOLID.
+## Preloaded data
 
-### Creatividad
-- Se espera dada la descripción del problema se creen las entidades y metodos en consecuencia a lo solicitado.
+**Users:**
+| Username | Password | Email |
+|---|---|---|
+| admin | password | admin@nuevospa.com |
+| john.doe | password | john@nuevospa.com |
 
-## Entregables:
-### Repositorio de GitHub:
-- Realiza un Pull request a este repositorio indicando tu nombre, correo y cargo al que postulas.
-- Todos los PR serán rechazados, no es un indicador de la prueba.
+**Task statuses:**
+| ID | Name |
+|---|---|
+| c2eebc99-9c0b-4ef8-bb6d-6bb9bd380a33 | PENDING |
+| d3eebc99-9c0b-4ef8-bb6d-6bb9bd380a44 | IN_PROGRESS |
+| e4eebc99-9c0b-4ef8-bb6d-6bb9bd380a55 | COMPLETED |
+| f5eebc99-9c0b-4ef8-bb6d-6bb9bd380a66 | CANCELLED |
 
-### Documentación:
-- Incluye instrucciones claras en un README en formato markdown, sobre cómo ejecutar y probar la aplicación, con ejemplos de requests.
+## Endpoints
 
-## Evaluación:
-Se evaluará la solución en función de los siguientes criterios:
+### Authentication
 
-- Correcta implementación de las funcionalidades solicitadas.
-- Aplicación de buenas prácticas de desarrollo, patrones de diseño y principios SOLID.
-- Uso adecuado de Java 21, Spring Boot 3.5.x, H2, JWT, OpenAPI.
-- Claridad y completitud de la documentación.
-- **Puntos extras si la generación de la API se realizo mediante API First**
+#### POST /api/auth/login
+```json
+{
+    "username": "admin",
+    "password": "password"
+}
+```
+Response:
+```json
+{
+    "token": "eyJhbGciOiJIUzI1NiJ9...",
+    "type": "Bearer",
+    "username": "admin"
+}
+```
+
+### Tasks (requires Bearer token)
+
+#### GET /api/tasks
+Returns all tasks.
+
+#### GET /api/tasks/{id}
+Returns task by id.
+
+#### POST /api/tasks
+```json
+{
+    "title": "Implement login",
+    "description": "Implement JWT authentication",
+    "statusId": "c2eebc99-9c0b-4ef8-bb6d-6bb9bd380a33",
+    "assignedUserId": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11"
+}
+```
+
+#### PUT /api/tasks/{id}
+```json
+{
+    "title": "Implement login updated",
+    "description": "Updated description",
+    "statusId": "d3eebc99-9c0b-4ef8-bb6d-6bb9bd380a44",
+    "assignedUserId": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11"
+}
+```
+
+#### DELETE /api/tasks/{id}
+Returns 204 No Content.
+
+## Running tests
+
+```bash
+mvn test
+```
+
+## HTTP Status codes
+
+| Code | Meaning |
+|---|---|
+| 200 | OK |
+| 201 | Created |
+| 204 | No Content |
+| 400 | Bad Request |
+| 401 | Unauthorized |
+| 404 | Not Found |
+| 500 | Internal Server Error |

@@ -1,1 +1,5 @@
+com/nuevospa/tasks/infrastructure/adapter/in/rest/TaskControllerTest.class
 com/nuevospa/tasks/TasksApplicationTests.class
+com/nuevospa/tasks/application/usecase/GetAllTasksUseCaseImplTest.class
+com/nuevospa/tasks/application/usecase/LoginUseCaseImplTest.class
+com/nuevospa/tasks/application/usecase/DeleteTaskUseCaseImplTest.class

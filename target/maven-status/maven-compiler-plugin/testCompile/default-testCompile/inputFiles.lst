@@ -1,1 +1,5 @@
 /Users/daniel/Documents/Projects/desafio-spring-boot/src/test/java/com/nuevospa/tasks/TasksApplicationTests.java
+/Users/daniel/Documents/Projects/desafio-spring-boot/src/test/java/com/nuevospa/tasks/application/usecase/DeleteTaskUseCaseImplTest.java
+/Users/daniel/Documents/Projects/desafio-spring-boot/src/test/java/com/nuevospa/tasks/application/usecase/GetAllTasksUseCaseImplTest.java
+/Users/daniel/Documents/Projects/desafio-spring-boot/src/test/java/com/nuevospa/tasks/application/usecase/LoginUseCaseImplTest.java
+/Users/daniel/Documents/Projects/desafio-spring-boot/src/test/java/com/nuevospa/tasks/infrastructure/adapter/in/rest/TaskControllerTest.java
